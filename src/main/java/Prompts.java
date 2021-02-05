@@ -46,18 +46,36 @@ public class Prompts {
                     System.out.printf("selected %s\n", Selections.TWO);
                     System.out.print("Please enter an email:\n");
                     var email = scanner.next();
-                    Entry entry = AddressBook.findEntry(email);
+                    Entry entry = AddressBook.findEntry("4", email);
                     System.out.println(AddressBook.removeEntry(entry));
                     makeSelection(scanner);
                 }
                 case THREE -> {
                     System.out.printf("selected %s\n", Selections.THREE);
-                    System.out.print("Please enter an email:\n");
-                    var email = scanner.next();
-                    Entry entry = AddressBook.findEntry(email);
+                    System.out.print("""
+                            1) First Name
+                            2) Last Name
+                            3) Phone Number
+                            4) Email Address
+                            """);
+
+                    System.out.print("Please enter a query type: \n");
+                    var queryType = scanner.next();
+                    System.out.print("Please enter a query: \n");
+                    var query = scanner.next();
+
+                    Entry entry = AddressBook.findEntry(queryType, query);
                     System.out.println(entry);
                     makeSelection(scanner);
                 }
+//                case THREE -> {
+//                    System.out.printf("selected %s\n", Selections.THREE);
+//                    System.out.print("Please enter an email:\n");
+//                    var email = scanner.next();
+//                    Entry entry = AddressBook.findEntry(email);
+//                    System.out.println(entry);
+//                    makeSelection(scanner);
+//                }
                 case FOUR -> {
                     System.out.printf("selected %s\n", Selections.FOUR);
                     AddressBook.printAll();
@@ -76,6 +94,8 @@ public class Prompts {
                     }else if (choice.equalsIgnoreCase("n")) {
                         scanner.nextLine();
                         makeSelection(scanner);
+                    }else {
+                        System.out.println("Not a valid entry");
                     }
                 }
                 case SIX -> exitSystem();
